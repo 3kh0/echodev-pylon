@@ -9,11 +9,15 @@ discord.interactions.commands.register(
     );
     const roleId = '971775755853897740';
     if (interaction.member.roles.includes(roleId)) {
-      await interaction.editOriginal('❌ You are already verified silly!');
+      await interaction.editOriginal(
+        '❌ Really? You are already verified dummy!'
+      );
       return;
     }
     sleep(2443);
     await interaction.member.addRole(roleId);
-    await interaction.editOriginal(`✅ You've been verifed!`);
+    await interaction.editOriginal(
+      `✅ You've been verifed! Hop over to <#971769909136736268> to talk with the others!`
+    );
   }
 );

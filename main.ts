@@ -1,12 +1,20 @@
-// import raw commands
+// EchoDev
+//
+// These scripts are written by 3kh0 for the server EchoDev
+//
+// Invite link: https://discord.gg/wv6huJAwEv
+//
+
+// raw commands
 
 import './raw/main';
 
-// import slash commands
+// slash commands
 
 import './slash/verify';
 import './slash/misc';
 
-// import everything else
+// tasks
 
 import './tasks/join';
+import './tasks/message';
