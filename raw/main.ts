@@ -1,4 +1,4 @@
-// fuck it lets put all of the commands here
+// fuck it, lets put all of the commands here!
 
 const commands = new discord.command.CommandGroup({
   defaultPrefix: '!'
@@ -8,16 +8,20 @@ commands.on(
   { name: 'help', description: 'help' },
   () => ({}),
   async (message) => {
-    await message.reply(
+    await message.inlineReply(
       new discord.Embed({
         title: 'Help menu',
         description: [
           'Example command:',
           '`!example <required> [optional]`',
           '**Commands**:',
+          'General commands',
           '- `!roll <sides>` - roll a dice with <sides>',
+          '- `!hug <user>` - give someone a hug!',
+          '- `!hey-siri [question]` - ask siri something',
           '- `!poll <question>` - make a nice poll',
-          '',
+          '- `!info` - get some information!',
+          'Staff commands',
           '- `!slowmode <time> [optional]` - set the slowmode for a channel'
         ].join('\n')
       })
@@ -48,6 +52,52 @@ commands.on(
 );
 
 commands.on(
+  'hug',
+  (args) => ({
+    user: args.user()
+  }),
+  async (message, { user }) => {
+    await message.inlineReply(
+      `${message.author.username} hugged ${user.username}!`
+    );
+  }
+);
+
+commands.on(
+  {
+    name: 'hey-siri',
+    aliases: ['hs']
+  },
+  (args) => ({
+    input: args.textOptional()
+  }),
+  async (message, { input }) => {
+    const siriResponses = [
+      'Searching for nearby sushi restaraunts...',
+      'Sending images of Google search "butt" to grandmother',
+      'The coin landed heads.',
+      'The coin landed tails.',
+      'The square root of 27 is 5.196152423.',
+      'Setting alarm for "11:00 PM snack"',
+      'TikTok was just removed from existance!',
+      'Ordered 420 pizzas from Pizza Hut!',
+      'Did you know, not breathing means that you are not breathing!',
+      'Sorry, I do not know what you are trying to do!',
+      'Stop it, get some help!',
+      'Calling 911...',
+      'Launching intercontinental ballistic missile. Target: Northwest Syria',
+      "Yes, I'm Siri.",
+      'Buying $GME Stock...',
+      'Preordering tickets to Disney\'s 2021 "Cruella"',
+      'Search results show you may have the black plague.'
+    ];
+    const randSiriResponse =
+      Math.floor(Math.random() * siriResponses.length) + 1;
+    await message.inlineReply(siriResponses[randSiriResponse]);
+  }
+);
+
+commands.on(
   'roll',
   (args) => ({
     sides: args.integer()
@@ -55,7 +105,7 @@ commands.on(
   async (message, { sides }) => {
     const result = Math.ceil(Math.random() * sides);
     await message.inlineReply(
-      `🎲 The *${sides}-sided* landed on **${result}**!`
+      `🎲 The *${sides}-sided* dice landed on **${result}**!`
     );
   }
 );
@@ -86,6 +136,26 @@ commands.on(
       x.addReaction('❎');
     });
     message.delete();
+  }
+);
+
+commands.on(
+  {
+    name: 'info'
+  },
+  () => ({}),
+  async (message) => {
+    await message.inlineReply(
+      new discord.Embed({
+        title: 'About',
+        description: [
+          'This bot is coded by Echo',
+          '',
+          'You can view the source code here:',
+          'https://github.com/3kh0/echodev-pylon'
+        ].join('\n')
+      })
+    );
   }
 );
 
