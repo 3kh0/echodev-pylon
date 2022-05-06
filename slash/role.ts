@@ -14,7 +14,7 @@ discord.interactions.commands.register(
     options: (opts) => ({
       role: opts.string({
         required: true,
-        description: 'The role to add.',
+        description: 'The role to add/remove',
         choices: Object.keys(ROLES)
       })
     })
