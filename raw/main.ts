@@ -220,13 +220,13 @@ commands.on(
     });
     embed.setTitle(`${poll}`);
     embed.setDescription(
-      `Vote either ✅ or ❎\n\n**When voting:**\nDon’t vote for both options.`
+      `Vote either ✅ or ❌\n\n**When voting:**\nDon’t vote for both options.`
     );
     embed.setColor(0x00ffe9);
     s_channel?.sendMessage({ embed: embed }).then((x) => {
       x.addReaction('✅');
-      sleep(3);
-      x.addReaction('❎');
+      sleep(500);
+      x.addReaction('❌');
     });
     message.delete();
   }
