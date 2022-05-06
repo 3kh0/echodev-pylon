@@ -11,8 +11,9 @@ import './raw/main';
 
 // slash commands
 
-import './slash/verify';
 import './slash/misc';
+import './slash/role';
+import './slash/verify';
 
 // tasks
 

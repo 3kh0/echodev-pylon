@@ -1,4 +1,5 @@
 // fuck it, lets put all of the commands here!
+const revive = new pylon.KVNamespace('revive-chat');
 
 const commands = new discord.command.CommandGroup({
   defaultPrefix: '!'
@@ -51,6 +52,40 @@ commands.on(
     }
     await message.reply({
       content: input
+    });
+    await message.delete();
+  }
+);
+
+commands.on(
+  {
+    name: 'chat-revive',
+    aliases: ['cr']
+  },
+  () => ({}),
+  async (message) => {
+    if (!message.member.roles.includes('972251625668366376')) {
+      return await message.inlineReply(
+        '❌ You need to have the chat revive role in order to revive the chat! You can get it by doing `/role`.'
+      );
+    }
+    if (message.channelId == '971769909136736268') {
+      // do nothing
+    } else {
+      return await message.inlineReply(
+        '❌ You can only revive the chat in <#971769909136736268>!'
+      );
+    }
+    if (await revive.get<boolean>('revive')) {
+      return await message.inlineReply(
+        '❌ Woah the chat was already revived within the last hour, wait a little before doing it again.'
+      );
+    }
+    await revive.put('revive', true, {
+      ttl: Math.ceil(Date.now() / 1000 / 60 / 60) * 60 * 60 * 1000 - Date.now()
+    });
+    await message.reply({
+      content: `Arise all ye <@&972251625668366376> You have been summoned by ${message.member.toMention()} to bring life to this conversation...`
     });
     await message.delete();
   }
