@@ -22,7 +22,8 @@ commands.on(
           '- `!poll <question>` - make a nice poll',
           '- `!info` - get some information!',
           'Staff commands',
-          '- `!slowmode <time> [optional]` - set the slowmode for a channel'
+          '- `!slowmode <time> [optional]` - set the slowmode for a channel',
+          '- `!kick <user> [reason` - kick someone from the server'
         ].join('\n')
       })
     );
@@ -189,5 +190,50 @@ commands.on(
         theChannel.id
       }>** has been set to \`${settedTime.toFixed(0)}\` second(s).`
     );
+  }
+);
+
+commands.on(
+  {
+    name: 'kick',
+    aliases: ['k'],
+    filters: discord.command.filters.canKickMembers()
+  },
+  (args) => ({
+    member: args.guildMember(),
+    reason: args.textOptional()
+  }),
+  async (message, { member }) => {
+    const guild = await discord.getGuild();
+    const channel = await discord.getGuildTextChannel('972159547567374397');
+
+    const logger = new discord.Embed();
+    logger.setTitle('User kicked!');
+    logger.setColor(0x00ff00);
+    logger.setFooter({
+      text: guild.name
+    });
+    logger.setThumbnail({ url: member.user.getAvatarUrl() });
+    logger.addField({
+      name: 'User Name',
+      value: `${member.user.username}`,
+      inline: false
+    });
+    logger.addField({
+      name: 'User ID',
+      value: `${member.user.id}`,
+      inline: false
+    });
+    logger.setTimestamp(new Date().toISOString());
+    if (guild) {
+      await member.kick;
+      channel?.sendMessage({
+        content: '',
+        embed: logger
+      });
+      await message.inlineReply(
+        `✅ **${member.user.username}** was kicked from the server!`
+      );
+    }
   }
 );
