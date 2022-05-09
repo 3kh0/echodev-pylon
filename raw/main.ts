@@ -1,4 +1,5 @@
 // fuck it, lets put all of the commands here!
+/** fun ight */
 const revive = new pylon.KVNamespace('revive-chat');
 
 const commands = new discord.command.CommandGroup({
@@ -24,11 +25,13 @@ commands.on(
           '- `!hug <user>` - give someone a nice big hug',
           '- `!hey-siri [question]` - ask siri something',
           '- `!poll <question>` - make a nice poll',
-          '- `!info` - get some information!',
-          'Staff commands',
-          '- `!slowmode <time> [optional]` - set the slowmode for a channel',
-          '- `!kick <user> [reason` - kick someone from the server',
-          '- `!ban <user> [reason]` - ban someone from the server'
+          '- `!info` - get some information',
+          '- `!calypso` - no information provided',
+          '- `!piplup` - no information provided',
+          '- `!3kh0` - get a link to 3kh0.github.io',
+          'Slash commands',
+          '- `/color <color>` - add/remove a color role',
+          '- `/role <role>` - add/remove a role to yourself'
         ].join('\n')
       })
     );
@@ -182,7 +185,8 @@ commands.on(
       "Yes, I'm Siri.",
       'Buying $GME Stock...',
       'Preordering tickets to Disney\'s 2021 "Cruella"',
-      'Search results show you may have the black plague.'
+      'Search results show you may have the black plague.',
+      'amogus'
     ];
     const randSiriResponse =
       Math.floor(Math.random() * siriResponses.length) + 1;
@@ -225,7 +229,7 @@ commands.on(
     embed.setColor(0x00ffe9);
     s_channel?.sendMessage({ embed: embed }).then((x) => {
       x.addReaction('✅');
-      sleep(500);
+      sleep(69420);
       x.addReaction('❌');
     });
     message.delete();
@@ -242,7 +246,7 @@ commands.on(
       new discord.Embed({
         title: 'About',
         description: [
-          'This bot is coded by Echo',
+          'This bot is coded by Echo (piplup decided to be annoying and screw around with this too :D)',
           '',
           'You can view the source code here:',
           'https://github.com/3kh0/echodev-pylon'
@@ -259,6 +263,28 @@ commands.on(
   () => ({}),
   async (message) => {
     await message.inlineReply('calypso is kinda cool');
+  }
+);
+
+commands.on(
+  {
+    name: 'piplup'
+  },
+  () => ({}),
+  async (message) => {
+    await message.inlineReply('piplup is big idiot');
+  }
+);
+
+commands.on(
+  {
+    name: '3kh0'
+  },
+  () => ({}),
+  async (message) => {
+    await message.inlineReply(
+      'Echo make site go brrrrrrr https://3kh0.github.io/'
+    );
   }
 );
 
