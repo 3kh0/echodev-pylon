@@ -12,6 +12,7 @@ import './raw/main';
 // slash commands
 
 import './slash/color';
+import './slash/nick';
 import './slash/repeat';
 import './slash/role';
 import './slash/verify';

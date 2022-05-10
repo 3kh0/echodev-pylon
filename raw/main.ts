@@ -66,6 +66,43 @@ commands.on(
 
 commands.on(
   {
+    name: 'nickname',
+    aliases: ['nick']
+  },
+  (args) => ({
+    member: args.guildMember(),
+    nick: args.stringOptional()
+  }),
+  async (message, { member, nick }) => {
+    if (!message.member.can(discord.Permissions.MANAGE_NICKNAMES))
+      return await message.inlineReply(
+        '❌ You do not have permission to use this command'
+      );
+    const newNick = nick || '';
+    if (newNick.length > 32)
+      return message.inlineReply(
+        '❌ The new nickname must be shorter than 32 characters'
+      );
+    await member.edit({ nick: newNick });
+    if (newNick != '')
+      message.inlineReply(
+        '✅ The nickname of ' +
+          member.toMention() +
+          ' has been changed to `' +
+          newNick +
+          '`.'
+      );
+    else
+      message.inlineReply(
+        '✅ The nickname of ' +
+          message.member.toMention() +
+          ' has been removed.'
+      );
+  }
+);
+
+commands.on(
+  {
     name: 'avatar',
     aliases: ['ava', 'pfp'],
     description: "Display's a user's avatar"
