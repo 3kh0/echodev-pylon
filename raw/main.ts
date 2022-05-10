@@ -19,16 +19,20 @@ commands.on(
           '`!example <required> [optional]`',
           '**Commands**:',
           'General commands',
-          '- `!minecraft <server>` - the the stats to a mc server',
+          "- `!avatar [user]` - view your's or someone's avatar",
+          '- `!ping` - ping the bot and see the latency in the server',
+          '- `!chat-revive` - revive <#971769909136736268> chat',
+          '- `!minecraft <server>` - get the stats to a mc server',
           '- `!binary <text>` - convert text into binary!',
           '- `!roll <sides>` - roll a dice with <sides>',
           '- `!hug <user>` - give someone a nice big hug',
           '- `!hey-siri [question]` - ask siri something',
           '- `!poll <question>` - make a nice poll',
-          '- `!info` - get some information',
+          '- `!info` - get some information about the bot',
           '- `!calypso` - no information provided',
-          '- `!piplup` - no information provided',
-          '- `!3kh0` - get a link to 3kh0.github.io',
+          '- `!piplup` - is idiot',
+          '- `!3kh0` - gme site go brrrr',
+          '- `!astra` - a',
           'Slash commands',
           '- `/color <color>` - add/remove a color role',
           '- `/role <role>` - add/remove a role to yourself'
@@ -57,6 +61,49 @@ commands.on(
       content: input
     });
     await message.delete();
+  }
+);
+
+commands.on(
+  {
+    name: 'avatar',
+    aliases: ['ava', 'pfp'],
+    description: "Display's a user's avatar"
+  },
+  (ctx) => ({ p: ctx.userOptional() }),
+  async (message, { p }) => {
+    let embed = new discord.Embed();
+    if (!p) p = message.author;
+    let IMAGE = p?.getAvatarUrl();
+    embed
+      .setTitle(`${p?.username}'s avatar`)
+      .setImage({ url: IMAGE })
+      .setTimestamp(new Date().toISOString());
+    await message.inlineReply(embed);
+  }
+);
+
+commands.on(
+  {
+    name: 'ping',
+    aliases: ['pi']
+  },
+  () => ({}),
+  async (message) => {
+    const response = await message.reply({
+      content: '🔃 Pinging...',
+      reply: message.id,
+      allowedMentions: { reply: true }
+    });
+    const pingTime =
+      Number((BigInt(response.id) >> 22n) + 1420070400000n) -
+      Number((BigInt(message.id) >> 22n) + 1420070400000n);
+    await response.edit(
+      discord.decor.Emojis.PING_PONG +
+        ' Pong! The latency was `' +
+        pingTime.toFixed(0) +
+        ' ms`.'
+    );
   }
 );
 
@@ -184,6 +231,10 @@ commands.on(
       'Launching intercontinental ballistic missile. Target: Northwest Syria',
       "Yes, I'm Siri.",
       'You can buy a flying bicycle, would you like to do so?',
+      'You do want to invade Poland?',
+      'When you die you can not buy the fortnite battle pass.',
+      'Never gonna give you up, never gonna let you down...',
+      'If you microwave your phone it will become faster!',
       'There was a Roomba once that followed me around everwhere.',
       'For this emotion, I prescribe will chocolate.',
       "I'd prefer not to",
@@ -248,7 +299,7 @@ commands.on(
     embed.setColor(0x00ffe9);
     s_channel?.sendMessage({ embed: embed }).then((x) => {
       x.addReaction('✅');
-      sleep(69420);
+      sleep(50);
       x.addReaction('❌');
     });
     message.delete();
@@ -257,21 +308,46 @@ commands.on(
 
 commands.on(
   {
-    name: 'info'
+    name: 'rate',
+    aliases: ['r']
   },
-  () => ({}),
-  async (message) => {
-    await message.inlineReply(
-      new discord.Embed({
-        title: 'About',
-        description: [
-          'This bot is coded by Echo (piplup decided to be annoying and screw around with this too :D)',
-          '',
-          'You can view the source code here:',
-          'https://github.com/3kh0/echodev-pylon'
-        ].join('\n')
-      })
+  (args) => ({
+    poll: args.text()
+  }),
+  async (message, { poll }) => {
+    const s_channel = await message.getChannel();
+    const embed = new discord.Embed();
+    embed.setAuthor({
+      name: message.author.getTag(),
+      iconUrl: message.author.getAvatarUrl()
+    });
+    embed.setTitle(`${poll}`);
+    embed.setDescription(
+      `Choose on a scale of 1-10\n\n**When rating:**\nDon’t select more than one options.`
     );
+    embed.setColor(0x00ffe9);
+    s_channel?.sendMessage({ embed: embed }).then((x) => {
+      x.addReaction('1⃣');
+      sleep(50);
+      x.addReaction('2⃣');
+      sleep(50);
+      x.addReaction('3⃣');
+      sleep(50);
+      x.addReaction('4⃣');
+      sleep(50);
+      x.addReaction('5⃣');
+      sleep(50);
+      x.addReaction('6⃣');
+      sleep(50);
+      x.addReaction('7⃣');
+      sleep(50);
+      x.addReaction('8⃣');
+      sleep(50);
+      x.addReaction('9⃣');
+      sleep(50);
+      x.addReaction('🔟');
+    });
+    message.delete();
   }
 );
 
@@ -292,6 +368,18 @@ commands.on(
   () => ({}),
   async (message) => {
     await message.inlineReply('piplup is big idiot');
+  }
+);
+
+commands.on(
+  {
+    name: 'astra'
+  },
+  () => ({}),
+  async (message) => {
+    await message.inlineReply(
+      'twitch streamer!1/1?!/1/1/1//??? twitch.tv/ccr_astra'
+    );
   }
 );
 

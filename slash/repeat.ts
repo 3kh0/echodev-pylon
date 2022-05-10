@@ -1,7 +1,7 @@
 discord.interactions.commands.register(
   {
-    name: 'echo',
-    description: 'ADMIN ONLY COMMAND',
+    name: 'repeat',
+    description: 'admin only :) no touch :)',
     options: (opts) => ({
       text: opts.string({
         description: 'text',

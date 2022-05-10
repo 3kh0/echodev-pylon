@@ -14,10 +14,10 @@ discord.interactions.commands.register(
       );
       return;
     }
-    sleep(2443);
+    sleep(690420);
     await interaction.member.addRole(roleId);
     await interaction.editOriginal(
-      `✅ You've been verifed! Hop over to <#971769909136736268> to talk with the others!`
+      "✅ You've been verifed! Here is what you can do now:\n- Hop over to <#971769909136736268> to talk with the others!\n- Do `/role` to get some roles for yourself.\nDo `/color` to change your name color.\nAnd so much more! Enjoy the server!"
     );
   }
 );

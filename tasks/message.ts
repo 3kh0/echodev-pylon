@@ -30,9 +30,7 @@ discord.on('MESSAGE_DELETE', async (message) => {
   embed.setColor(0xff0000);
   embed.setTimestamp(new Date().toISOString());
   const guild = await discord.getGuild();
-  const channel = await guild.getChannel(
-    '[channel which messages is logged in]'
-  );
+  const channel = await guild.getChannel('972159547567374397');
   if (guild && channel) {
     await channel.sendMessage({
       content: '',
