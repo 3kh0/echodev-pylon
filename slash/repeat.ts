@@ -5,9 +5,9 @@ discord.interactions.commands.register(
     options: (opts) => ({
       text: opts.string({
         description: 'text',
-        required: true
-      })
-    })
+        required: true,
+      }),
+    }),
   },
   async (interaction, { text }) => {
     if (!interaction.member.roles.includes('971775516904423434')) {

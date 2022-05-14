@@ -3,7 +3,7 @@
 const revive = new pylon.KVNamespace('revive-chat');
 
 const commands = new discord.command.CommandGroup({
-  defaultPrefix: '!'
+  defaultPrefix: '!',
 });
 
 commands.on(
@@ -33,10 +33,13 @@ commands.on(
           '- `!piplup` - is idiot',
           '- `!3kh0` - gme site go brrrr',
           '- `!astra` - a',
+          '- `!humor` - some humor :D',
+          '',
+          '- `!potato help` - get some help about the potato system!',
           'Slash commands',
           '- `/color <color>` - add/remove a color role',
-          '- `/role <role>` - add/remove a role to yourself'
-        ].join('\n')
+          '- `/role <role>` - add/remove a role to yourself',
+        ].join('\n'),
       })
     );
   }
@@ -45,10 +48,10 @@ commands.on(
 commands.on(
   {
     name: 'echo',
-    aliases: ['e']
+    aliases: ['e'],
   },
   (args) => ({
-    input: args.text()
+    input: args.text(),
   }),
   async (message, { input }) => {
     if (!message.member.roles.includes('971775516904423434')) {
@@ -58,7 +61,7 @@ commands.on(
       return;
     }
     await message.reply({
-      content: input
+      content: input,
     });
     await message.delete();
   }
@@ -67,11 +70,11 @@ commands.on(
 commands.on(
   {
     name: 'nickname',
-    aliases: ['nick']
+    aliases: ['nick'],
   },
   (args) => ({
     member: args.guildMember(),
-    nick: args.stringOptional()
+    nick: args.stringOptional(),
   }),
   async (message, { member, nick }) => {
     if (!message.member.can(discord.Permissions.MANAGE_NICKNAMES))
@@ -105,7 +108,7 @@ commands.on(
   {
     name: 'avatar',
     aliases: ['ava', 'pfp'],
-    description: "Display's a user's avatar"
+    description: "Display's a user's avatar",
   },
   (ctx) => ({ p: ctx.userOptional() }),
   async (message, { p }) => {
@@ -123,14 +126,14 @@ commands.on(
 commands.on(
   {
     name: 'ping',
-    aliases: ['pi']
+    aliases: ['pi'],
   },
   () => ({}),
   async (message) => {
     const response = await message.reply({
       content: '🔃 Pinging...',
       reply: message.id,
-      allowedMentions: { reply: true }
+      allowedMentions: { reply: true },
     });
     const pingTime =
       Number((BigInt(response.id) >> 22n) + 1420070400000n) -
@@ -147,7 +150,7 @@ commands.on(
 commands.on(
   {
     name: 'chat-revive',
-    aliases: ['cr']
+    aliases: ['cr'],
   },
   () => ({}),
   async (message) => {
@@ -169,10 +172,10 @@ commands.on(
       );
     }
     await revive.put('revive', true, {
-      ttl: Math.ceil(Date.now() / 1000 / 60 / 60) * 60 * 60 * 1000 - Date.now()
+      ttl: Math.ceil(Date.now() / 1000 / 60 / 60) * 60 * 60 * 1000 - Date.now(),
     });
     await message.reply({
-      content: `Arise all ye <@&972251625668366376> You have been summoned by ${message.member.toMention()} to bring life to this conversation...`
+      content: `Arise all ye <@&972251625668366376> You have been summoned by ${message.member.toMention()} to bring life to this conversation...`,
     });
     await message.delete();
   }
@@ -181,10 +184,10 @@ commands.on(
 commands.on(
   {
     name: 'minecraft',
-    aliases: ['mc']
+    aliases: ['mc'],
   },
   (args) => ({
-    server: args.string()
+    server: args.string(),
   }),
   async (msg, { server }) => {
     let m = await msg.inlineReply(
@@ -197,15 +200,15 @@ commands.on(
     e.addField({ name: 'IP', value: res.hostname + ':' + res.port });
     e.addField({
       name: 'Motd',
-      value: res.motd.clean[0] + '\n' + res.motd.clean[1]
+      value: res.motd.clean[0] + '\n' + res.motd.clean[1],
     });
     e.addField({
       name: 'Players',
-      value: res.players.online + '/' + res.players.max
+      value: res.players.online + '/' + res.players.max,
     });
     e.addField({ name: 'Version', value: res.version });
     e.setThumbnail({
-      url: `https://eu.mc-api.net/v3/server/favicon/${server}`
+      url: `https://eu.mc-api.net/v3/server/favicon/${server}`,
     });
     m.edit(e);
   }
@@ -214,7 +217,7 @@ commands.on(
 commands.on(
   'binary',
   (args) => ({
-    binary: args.text()
+    binary: args.text(),
   }),
   async (message, { binary }) => {
     let outputStr: string = binary
@@ -234,7 +237,7 @@ commands.on(
 commands.on(
   'hug',
   (args) => ({
-    user: args.user()
+    user: args.user(),
   }),
   async (message, { user }) => {
     await message.inlineReply(
@@ -246,10 +249,10 @@ commands.on(
 commands.on(
   {
     name: 'hey-siri',
-    aliases: ['hs']
+    aliases: ['hs'],
   },
   (args) => ({
-    input: args.textOptional()
+    input: args.textOptional(),
   }),
   async (message, { input }) => {
     const siriResponses = [
@@ -293,7 +296,7 @@ commands.on(
       'Buying $GME Stock...',
       'Preordering tickets to Disney\'s 2021 "Cruella"',
       'Search results show you may have the black plague.',
-      'amogus'
+      'amogus',
     ];
     const randSiriResponse =
       Math.floor(Math.random() * siriResponses.length) + 1;
@@ -304,7 +307,7 @@ commands.on(
 commands.on(
   'roll',
   (args) => ({
-    sides: args.integer()
+    sides: args.integer(),
   }),
   async (message, { sides }) => {
     const result = Math.ceil(Math.random() * sides);
@@ -317,17 +320,17 @@ commands.on(
 commands.on(
   {
     name: 'poll',
-    aliases: ['p']
+    aliases: ['p'],
   },
   (args) => ({
-    poll: args.text()
+    poll: args.text(),
   }),
   async (message, { poll }) => {
     const s_channel = await message.getChannel();
     const embed = new discord.Embed();
     embed.setAuthor({
       name: message.author.getTag(),
-      iconUrl: message.author.getAvatarUrl()
+      iconUrl: message.author.getAvatarUrl(),
     });
     embed.setTitle(`${poll}`);
     embed.setDescription(
@@ -346,17 +349,17 @@ commands.on(
 commands.on(
   {
     name: 'rate',
-    aliases: ['r']
+    aliases: ['r'],
   },
   (args) => ({
-    poll: args.text()
+    poll: args.text(),
   }),
   async (message, { poll }) => {
     const s_channel = await message.getChannel();
     const embed = new discord.Embed();
     embed.setAuthor({
       name: message.author.getTag(),
-      iconUrl: message.author.getAvatarUrl()
+      iconUrl: message.author.getAvatarUrl(),
     });
     embed.setTitle(`${poll}`);
     embed.setDescription(
@@ -390,7 +393,7 @@ commands.on(
 
 commands.on(
   {
-    name: 'calypso'
+    name: 'calypso',
   },
   () => ({}),
   async (message) => {
@@ -400,7 +403,7 @@ commands.on(
 
 commands.on(
   {
-    name: 'piplup'
+    name: 'piplup',
   },
   () => ({}),
   async (message) => {
@@ -410,7 +413,7 @@ commands.on(
 
 commands.on(
   {
-    name: 'astra'
+    name: 'astra',
   },
   () => ({}),
   async (message) => {
@@ -422,12 +425,12 @@ commands.on(
 
 commands.on(
   {
-    name: '3kh0'
+    name: '3kh0',
   },
   () => ({}),
   async (message) => {
     await message.inlineReply(
-      'Echo make site go brrrrrrr https://3kh0.github.io/'
+      'Echo make site go brrrrrrr https://3kh0.github.io/ they are also the special'
     );
   }
 );
@@ -435,7 +438,7 @@ commands.on(
 commands.on(
   {
     name: 'slowmode',
-    aliases: ['sm']
+    aliases: ['sm'],
   },
   (args) => ({ time: args.number(), channel: args.guildTextChannelOptional() }),
   async (msg, { time, channel }) => {
@@ -469,10 +472,10 @@ commands.on(
   {
     name: 'kick',
     aliases: ['k'],
-    filters: discord.command.filters.canKickMembers()
+    filters: discord.command.filters.canKickMembers(),
   },
   (args) => ({
-    member: args.guildMember()
+    member: args.guildMember(),
   }),
   async (message, { member }) => {
     const guild = await discord.getGuild();
@@ -482,25 +485,25 @@ commands.on(
     logger.setTitle('User kicked!');
     logger.setColor(0x00ff00);
     logger.setFooter({
-      text: guild.name
+      text: guild.name,
     });
     logger.setThumbnail({ url: member.user.getAvatarUrl() });
     logger.addField({
       name: 'User Name',
       value: `${member.user.username}`,
-      inline: false
+      inline: false,
     });
     logger.addField({
       name: 'User ID',
       value: `${member.user.id}`,
-      inline: false
+      inline: false,
     });
     logger.setTimestamp(new Date().toISOString());
     if (guild) {
       await member.kick;
       channel?.sendMessage({
         content: '',
-        embed: logger
+        embed: logger,
       });
       let full = member.user.username + '#' + member.user.discriminator;
       await message.inlineReply(`✅ **${full}** was kicked from the server!`);
@@ -512,11 +515,11 @@ commands.on(
   {
     name: 'ban',
     aliases: ['b'],
-    filters: discord.command.filters.canBanMembers()
+    filters: discord.command.filters.canBanMembers(),
   },
   (args) => ({
     user: args.user(),
-    reason: args.textOptional()
+    reason: args.textOptional(),
   }),
   async (message, { user, reason }) => {
     const guild = await discord.getGuild();
@@ -524,37 +527,75 @@ commands.on(
 
     await guild.createBan(user, {
       deleteMessageDays: 7,
-      reason: reason || undefined
+      reason: reason || undefined,
     });
 
     const logger = new discord.Embed();
     logger.setTitle('User banned!');
     logger.setColor(0x00ff00);
     logger.setFooter({
-      text: guild.name
+      text: guild.name,
     });
     logger.setThumbnail({ url: user.getAvatarUrl() });
     logger.addField({
       name: 'User Name',
       value: `${user.username}`,
-      inline: false
+      inline: false,
     });
     logger.addField({
       name: 'User ID',
       value: `${user.id}`,
-      inline: false
+      inline: false,
     });
     logger.addField({
       name: 'Reason',
       value: `${reason}`,
-      inline: false
+      inline: false,
     });
     logger.setTimestamp(new Date().toISOString());
     channel?.sendMessage({
       content: '',
-      embed: logger
+      embed: logger,
     });
     let full = user.username + '#' + user.discriminator;
     await message.inlineReply(`✅ **${full}** was banned from the server!`);
+  }
+);
+
+commands.on(
+  {
+    name: 'humor',
+    aliases: ['h'],
+  },
+  (args) => ({
+    input: args.textOptional(),
+  }),
+  async (message, { input }) => {
+    const humorResponses = [
+      'Relationship status? ||Ill leave the relations to the database.||',
+      'How do you get the code for the bank vault? ||You checkout their branch||',
+      'How did the developer announce their engagement? ||They `return`ed `true`!||',
+      'Why did the security conscious engineer refuse to pay their dinner bill? ||Because they could not verify the checksum.||',
+      'What do you call a busy waiter? ||A server.||',
+      'What do you call an idle server? ||A waiter.||',
+      'How many Prolog programmers does it take to change a lightbulb? ||Yes.||',
+      'Ive been hearing news about this big boolean. Huge if true.',
+      'What diet did the ghost developer go on? ||Boooooolean||',
+      'Why was the developer unhappy at their job? ||They wanted arrays.|',
+      'Why did 10 get paid less than `10`? ||There was workplace inequality.||',
+      'Why was the function sad after a successful first call? ||It didnt get a callback.||',
+      'Why did the angry function exceed the callstack size? ||It got into an Argument with itself||',
+      'Whats the object-oriented way to become wealthy? ||Inheritance||',
+      'Why did the developer ground their kid? ||They werent telling the truthy||',
+      'What did the array say after it was extended? ||Stop objectifying me.||',
+      'Where did the parallel function wash its hands? ||Async||',
+      'Why did the functions stop calling each other? ||Because they had constant arguments.||',
+      'Whats the second movie about a database engineer called? ||The SQL.||',
+      'A programmers significant other tells them `Run to the store and pick up a loaf of bread. If they have eggs get a dozen.` The programmer comes home with 12 loaves of bread.',
+      'What did the spider do on the computer? ||Made a website!||',
+    ];
+    const randHumorResponse =
+      Math.floor(Math.random() * humorResponses.length) + 1;
+    await message.inlineReply(humorResponses[randHumorResponse]);
   }
 );

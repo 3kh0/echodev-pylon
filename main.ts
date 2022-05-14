@@ -21,3 +21,7 @@ import './slash/verify';
 
 import './tasks/join';
 import './tasks/message';
+
+// anything else
+
+import './potato';

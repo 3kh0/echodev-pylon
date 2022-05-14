@@ -1,7 +1,7 @@
 discord.interactions.commands.register(
   {
     name: 'verify',
-    description: 'Verify yourself!'
+    description: 'Verify yourself!',
   },
   async (interaction) => {
     await interaction.respondEphemeral(
@@ -17,7 +17,7 @@ discord.interactions.commands.register(
     sleep(690420);
     await interaction.member.addRole(roleId);
     await interaction.editOriginal(
-      "✅ You've been verifed! Here is what you can do now:\n- Hop over to <#971769909136736268> to talk with the others!\n- Do `/role` to get some roles for yourself.\nDo `/color` to change your name color.\nAnd so much more! Enjoy the server!"
+      "✅ You've been verifed! Here is what you can do now:\n- Hop over to <#971769909136736268> to talk with the others!\n- Do `/role` to get some roles for yourself.\n- Do `/color` to change your name color.\nAnd so much more! Enjoy the server!"
     );
   }
 );
