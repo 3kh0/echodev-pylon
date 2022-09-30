@@ -19,10 +19,7 @@ commands.on(
           '**Commands**:',
           'General commands',
           '- `!ping` - ping the bot and see the latency in the server',
-          '- `!minecraft <server>` - get the stats to a mc server',
           '- `!binary <text>` - convert text into binary!',
-          '- `!roll <sides>` - roll a dice with <sides>',
-          '- `!hug <user>` - give someone a nice big hug',
           '- `!poll <question>` - make a nice poll',
         ].join('\n'),
       })
@@ -88,19 +85,6 @@ commands.on(
 );
 
 commands.on(
-  'roll',
-  (args) => ({
-    sides: args.integer(),
-  }),
-  async (message, { sides }) => {
-    const result = Math.ceil(Math.random() * sides);
-    await message.inlineReply(
-      `🎲 The *${sides}-sided* dice landed on **${result}**!`
-    );
-  }
-);
-
-commands.on(
   {
     name: 'poll',
     aliases: ['p'],
@@ -124,51 +108,6 @@ commands.on(
       x.addReaction('✅');
       sleep(50);
       x.addReaction('❌');
-    });
-    message.delete();
-  }
-);
-
-commands.on(
-  {
-    name: 'rate',
-    aliases: ['r'],
-  },
-  (args) => ({
-    poll: args.text(),
-  }),
-  async (message, { poll }) => {
-    const s_channel = await message.getChannel();
-    const embed = new discord.Embed();
-    embed.setAuthor({
-      name: message.author.getTag(),
-      iconUrl: message.author.getAvatarUrl(),
-    });
-    embed.setTitle(`${poll}`);
-    embed.setDescription(
-      `Choose on a scale of 1-10\n\n**When rating:**\nDon’t select more than one options.`
-    );
-    embed.setColor(0x00ffe9);
-    s_channel?.sendMessage({ embed: embed }).then((x) => {
-      x.addReaction('1⃣');
-      sleep(50);
-      x.addReaction('2⃣');
-      sleep(50);
-      x.addReaction('3⃣');
-      sleep(50);
-      x.addReaction('4⃣');
-      sleep(50);
-      x.addReaction('5⃣');
-      sleep(50);
-      x.addReaction('6⃣');
-      sleep(50);
-      x.addReaction('7⃣');
-      sleep(50);
-      x.addReaction('8⃣');
-      sleep(50);
-      x.addReaction('9⃣');
-      sleep(50);
-      x.addReaction('🔟');
     });
     message.delete();
   }
