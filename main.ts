@@ -18,6 +18,7 @@ import './slash/memberc';
 import './slash/nick';
 import './slash/repeat';
 import './slash/role';
+import './slash/tag';
 import './slash/verify';
 
 // tasks
